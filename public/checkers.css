@@ -2,3 +2,20 @@ html, body, div, canvas {
   margin: 0;
   padding: 0;
 }
+
+#login {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+}
+
+#login input {
+  margin-left: 10%;
+  margin-top: 20%;
+  width: 75%;
+  height: 20%;
+  font-size: 300%;
+  letter-spacing: 3px;
+  text-align: center;
+}
