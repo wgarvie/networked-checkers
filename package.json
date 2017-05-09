@@ -1,0 +1,9 @@
+{
+  "name": "networked-checkers",
+  "version": "0.0.1",
+  "description": "Multiplayer checkers game.",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.4"
+  }
+}
