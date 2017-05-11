@@ -10,6 +10,20 @@ server.listen(port,function() {
 
 app.use(express.static(__dirname + '/public'));
 
+var numUsers = 0;
+
 io.on('connection', function(client) {
-  console.log("A user connected.");
+  numUsers++;
+  console.log(numUsers + " users are connected.");
+  client.on('add user', function(username) {
+    client.username = username;
+    console.log(client.username + " has logged in.");
+  });
+
+  client.on('disconnect', function() {
+    numUsers--;
+    console.log(client.username + " has logged out.")
+    console.log(numUsers + " users are connected.");
+  });
+
 });

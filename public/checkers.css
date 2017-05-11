@@ -3,14 +3,14 @@ html, body, div, canvas {
   padding: 0;
 }
 
-#login {
+.login-screen {
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: #eee;
 }
 
-#login input {
+.login-screen__input {
   margin-left: 10%;
   margin-top: 20%;
   width: 75%;
