@@ -1,4 +1,7 @@
-var c=document.getElementById("myCanvas");
+var $gameCanvas = $('.game-canvas');
+ 
+
+/*
 var tileSize = c.height/8
 var board = newBoard()
 var lastMove=null
@@ -164,4 +167,4 @@ function checkWin() {
   else if(!blueExists) {
     gameOver = "Red Wins"
   }
-}
+}*/

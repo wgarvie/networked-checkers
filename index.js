@@ -11,6 +11,9 @@ server.listen(port,function() {
 app.use(express.static(__dirname + '/public'));
 
 var numUsers = 0;
+var gameObjects = require('./gameobjects.js');
+var board = gameObjects.newBoard();
+gameObjects.printBoard(board);
 
 io.on('connection', function(client) {
   numUsers++;
