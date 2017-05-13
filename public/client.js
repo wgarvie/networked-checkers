@@ -6,6 +6,8 @@ $(function() {
   var $loginScreen = $('.login-screen');
   var canvas = $('.game-canvas').get(0);
   var context = canvas.getContext('2d');
+  var game;
+  var color;
 
   function cleanInput (input) {
     return $('<div/>').text(input.trim()).text();
@@ -25,10 +27,13 @@ $(function() {
     }
   }
 
-  socket.on('newGame', function(game) {
-    console.log("Game Starting");
+  socket.on('newGame', function(serverGame, newColor) {
+    game = serverGame;
+    color = newColor;
     drawBoard(context, game.board, game.boardHeight);
     drawPieces(context, game.board);
   })
+
+
 
 });

@@ -12,6 +12,8 @@ app.use(express.static(__dirname + '/public'));
 
 var numUsers = 0;
 var gamesetup = require('./gamesetup');
+var redLoggedIn = false;
+var blueLoggedIn = false;
 
 function Game() {
   this.boardHeight = 600;
@@ -27,9 +29,19 @@ io.on('connection', function(client) {
     client.username = username;
     console.log(client.username + " has logged in.");
     console.log(numUsers + " users are connected.");
-    if(numUsers <= 2) {
-      client.emit('newGame', game);
+    if(!redLoggedIn) {
+      client.color = "red";
+      redLoggedIn = true;
     }
+    else if(!blueLoggedIn) {
+      client.color = "blue";
+      blueLoggedIn = true;
+    }
+    else {
+      client.color = "spectator";
+    }
+    console.log(client.username + " will play as " + client.color + ".");
+    client.emit('newGame', game, client.color);
   });
 
   client.on('disconnect', function() {
@@ -37,6 +49,12 @@ io.on('connection', function(client) {
       numUsers--;
       console.log(client.username + " has logged out.")
       console.log(numUsers + " users are connected.");
+      if(client.color === "red") {
+        redLoggedIn = false;
+      }
+      else if(client.color === "blue") {
+        blueLoggedIn = false;
+      }
     }
   });
 
