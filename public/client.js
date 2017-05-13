@@ -23,4 +23,9 @@ $(function() {
     }
   }
 
+  socket.on('newGame', function(data) {
+    console.log(data.name);
+    console.log(data.num);
+  })
+
 });

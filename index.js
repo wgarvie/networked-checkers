@@ -11,14 +11,18 @@ server.listen(port,function() {
 app.use(express.static(__dirname + '/public'));
 
 var numUsers = 0;
-var gameObjects = require('./gameobjects.js');
-var board = gameObjects.newBoard();
-gameObjects.printBoard(board);
+var gamesetup = require('./public/gamesetup');
+
+function GameServer() {
+  this.board = gamesetup.newBoard();
+  gamesetup.printBoard(this.board);
+}
+
+var gameServer = new GameServer();
 
 io.on('connection', function(client) {
-  numUsers++;
-  console.log(numUsers + " users are connected.");
   client.on('add user', function(username) {
+    numUsers++;
     client.username = username;
     console.log(client.username + " has logged in.");
   });
