@@ -24,7 +24,8 @@ module.exports = {
     return board;
   },
 
-  initializePieces: function(board) {
+  initializePieces: function(board, boardHeight) {
+    tileSize = boardHeight/8;
     for(y = 0; y < board.length; y++) {
       for(x = 0; x < board[0].length; x++) {
         if(board[y][x] != null) {

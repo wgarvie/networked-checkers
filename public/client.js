@@ -4,6 +4,7 @@ $(function() {
   var username = "";
   var $userNameInput = $('.login-screen__input');
   var $loginScreen = $('.login-screen');
+  var $gameCanvas = $('.game-canvas');
 
   function cleanInput (input) {
     return $('<div/>').text(input.trim()).text();
@@ -23,9 +24,9 @@ $(function() {
     }
   }
 
-  socket.on('newGame', function(data) {
-    console.log(data.name);
-    console.log(data.num);
+  socket.on('newGame', function(game) {
+    console.log("Game Starting");
+    drawBoard($gameCanvas.get(0), game.board, game.boardHeight);
   })
 
 });

@@ -11,26 +11,33 @@ server.listen(port,function() {
 app.use(express.static(__dirname + '/public'));
 
 var numUsers = 0;
-var gamesetup = require('./public/gamesetup');
+var gamesetup = require('./gamesetup');
 
-function GameServer() {
+function Game() {
+  this.boardHeight = 600;
   this.board = gamesetup.newBoard();
-  gamesetup.printBoard(this.board);
+  gamesetup.initializePieces(this.board, this.boardHeight);
 }
 
-var gameServer = new GameServer();
+var game = new Game();
 
 io.on('connection', function(client) {
   client.on('add user', function(username) {
     numUsers++;
     client.username = username;
     console.log(client.username + " has logged in.");
+    console.log(numUsers + " users are connected.");
+    if(numUsers <= 2) {
+      client.emit('newGame', game);
+    }
   });
 
   client.on('disconnect', function() {
-    numUsers--;
-    console.log(client.username + " has logged out.")
-    console.log(numUsers + " users are connected.");
+    if(client.username) {
+      numUsers--;
+      console.log(client.username + " has logged out.")
+      console.log(numUsers + " users are connected.");
+    }
   });
 
 });
