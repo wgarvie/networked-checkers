@@ -1,6 +1,3 @@
-var $gameCanvas = $('.game-canvas');
-
-
 /*
 var tileSize = c.height/8
 var board = newBoard()
@@ -19,6 +16,7 @@ c.addEventListener('mouseout', leaveBoard)
 c.addEventListener('mouseup', placePiece)
 c.addEventListener('touchend',placePiece)
 requestAnimationFrame(mainLoop)
+*/
 
 function drawGameOver() {
   var context = c.getContext("2d")
@@ -30,7 +28,6 @@ function drawGameOver() {
   context.fillText(gameOver,(tileSize/2)*4,(tileSize/2)*8.5)
 }
 
-
 function holdingPiece(e) {
   if(heldPiece!=null){
     heldPiece.xPos = e.x
@@ -38,7 +35,7 @@ function holdingPiece(e) {
   }
 }
 
-function grabPiece(e) {
+function grabPiece(e, board, heldPiece, heldX, heldY, turn) {
   if(heldPiece == null) {
     for(y=0; y<board.length; y++){
       for(x=0; x<board.length; x++){
@@ -46,6 +43,7 @@ function grabPiece(e) {
           heldPiece = board[y][x]
           heldX = x
           heldY = y
+          console.log(heldPiece);
         }
       }
     }
@@ -128,4 +126,4 @@ function checkWin() {
   else if(!blueExists) {
     gameOver = "Red Wins"
   }
-}*/
+}

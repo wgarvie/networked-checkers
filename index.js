@@ -18,6 +18,7 @@ var blueLoggedIn = false;
 function Game() {
   this.boardHeight = 600;
   this.board = gamesetup.newBoard();
+  this.turn = "red";
   gamesetup.initializePieces(this.board, this.boardHeight);
 }
 
