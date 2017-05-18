@@ -28,7 +28,8 @@ function drawGameOver() {
   context.fillText(gameOver,(tileSize/2)*4,(tileSize/2)*8.5)
 }
 
-function holdingPiece(e) {
+function holdingPiece(e, heldPiece) {
+  console.log(heldPiece);
   if(heldPiece!=null){
     heldPiece.xPos = e.x
     heldPiece.yPos = e.y
@@ -40,9 +41,9 @@ function grabPiece(e, board, heldPiece, heldX, heldY, turn) {
     for(y=0; y<board.length; y++){
       for(x=0; x<board.length; x++){
         if(board[y][x]!=null && board[y][x].color == turn && e.x>board[y][x].xPos-40 && e.x<board[y][x].xPos+40 && e.y>board[y][x].yPos-40 && e.y<board[y][x].yPos+40) {
-          heldPiece = board[y][x]
-          heldX = x
-          heldY = y
+          heldPiece = board[y][x];
+          heldX = x;
+          heldY = y;
           console.log(heldPiece);
         }
       }

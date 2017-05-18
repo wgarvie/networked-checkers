@@ -36,3 +36,13 @@ function drawPiece(context, newPiece) {
     context.fillText("K",newPiece.xPos-(tileSize/9),newPiece.yPos+(tileSize/5))
   }
 }
+
+function drawGameOver(context, boardHeight) {
+  tileSize = boardHeight/8;
+  context.fillStyle= "#000000"
+  context.fillRect(tileSize/2,(tileSize/2)*5,(tileSize/2)*14,(tileSize/2)*6)
+  context.fillStyle = "#ffffff"
+  var fontSize=tileSize
+  context.font=fontSize +"px Impact";
+  context.fillText(gameOver,(tileSize/2)*4,(tileSize/2)*8.5)
+}
