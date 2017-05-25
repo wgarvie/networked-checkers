@@ -59,4 +59,9 @@ io.on('connection', function(client) {
     }
   });
 
+  /*client.on('sync', function(newBoard) {
+    game.board = newBoard;
+    client.broadcast.emit('sync', game.board);
+  });*/
+
 });
