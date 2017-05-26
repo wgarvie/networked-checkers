@@ -10,8 +10,10 @@ server.listen(port,function() {
 
 app.use(express.static(__dirname + '/public'));
 
-var numUsers = 0;
 var gamesetup = require('./gamesetup');
+var checkers = require('./checkers');
+
+var numUsers = 0;
 var redLoggedIn = false;
 var blueLoggedIn = false;
 
@@ -20,6 +22,9 @@ function Game() {
   this.board = gamesetup.newBoard();
   this.turn = "red";
   gamesetup.initializePieces(this.board, this.boardHeight);
+  this.heldPiece=null;
+  this.heldX = -1;
+  this.heldY = -1;
 }
 
 var game = new Game();
@@ -59,9 +64,19 @@ io.on('connection', function(client) {
     }
   });
 
-  /*client.on('sync', function(newBoard) {
-    game.board = newBoard;
-    client.broadcast.emit('sync', game.board);
-  });*/
+  client.on('click', function(e) {
+    var grab = checkers.grabPiece(game.board, game.turn, client.color, game.heldPiece, game.heldX, game.heldY, e);
+    game.heldPiece = grab.piece;
+    game.heldX = grab.x;
+    game.heldY = grab.y;
+  });
+
+  client.on('mouseMove', function(e) {
+    if(game.heldPiece!=null && game.turn == client.color){
+      game.heldPiece.xPos = e.x;
+      game.heldPiece.yPos = e.y;
+      io.emit('sync', game.board);
+    }
+  });
 
 });
