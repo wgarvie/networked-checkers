@@ -11,8 +11,9 @@ $(function() {
   var boardHeight;
   var color;
   var gameOver = "";
-  canvas.addEventListener('mousedown', clientClick);
+  canvas.addEventListener('mousedown', clientMouseDown);
   canvas.addEventListener('mousemove', clientMouseMove);
+  canvas.addEventListener('mouseup', clientMouseUp);
 
   function cleanInput (input) {
     return $('<div/>').text(input.trim()).text();
@@ -54,12 +55,12 @@ $(function() {
       drawGameOver(context,boardHeight);
   }
 
-  function clientClick(e) {
+  function clientMouseDown(e) {
     var click = {
       x: e.x,
       y: e.y
     };
-    socket.emit('click', click);
+    socket.emit('mouseDown', click);
   }
 
   function clientMouseMove(e) {
@@ -68,6 +69,14 @@ $(function() {
       y: e.y
     };
     socket.emit('mouseMove', move);
+  }
+
+  function clientMouseUp(e) {
+    var release = {
+      x: e.x,
+      y: e.y
+    }
+    socket.emit('mouseUp', release);
   }
 
 });

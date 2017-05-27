@@ -166,6 +166,8 @@ function checkWin() {
   }
 }*/
 
+var moves = require('./moves.js')
+
 module.exports = {
 
   grabPiece: function(board, turn, clientColor, heldPiece, heldX, heldY, e) {
@@ -188,12 +190,73 @@ module.exports = {
     return grab;
   },
 
-  /*holdingPiece: function(heldPiece, e) {
-    if(heldPiece!=null){
-      heldPiece.xPos = e.x;
-      heldPiece.yPos = e.y;
+  checkWin: function(board) {
+    var gameOver = "";
+    redExists = false;
+    blueExists = false;
+    for(y = 0; y < board.length && (!redExists || !blueExists); y++) {
+      for(x = 0; x < board.length && (!redExists || !blueExists); x++) {
+        if(board[y][x] != null && board[y][x].color == "red")
+          redExists = true
+        else if(board[y][x] != null && board[y][x].color == "blue")
+          blueExists = true
+      }
     }
-    return heldPiece;
+    if(!redExists)
+      gameOver = "Blue Wins"
+    else if(!blueExists) {
+      gameOver = "Red Wins"
+    }
+    return gameOver;
+  }
+
+  /*
+  placePiece: function(e, turn, board, heldPiece, lastMove) {
+    var kinged = false
+    var dropX = Math.floor(e.x/tileSize)
+    var dropY = Math.floor(e.y/tileSize)
+    var validMoves = moves.getValidMoves(turn, board, lastMove);
+    if(validMoves.length == 0) {
+      var gameOver = turn + " can't move.";
+    }
+    var move = null;
+    for(x = 0; x < validMoves.length; x++) {
+      if(heldPiece == validMoves[x].piece && dropX == validMoves[x].newX && dropY == validMoves[x].newY) {
+        move = validMoves[x];;
+      }
+    }
+    if(move != null) {
+      board[dropY][dropX] = board[heldY][heldX];
+      board[heldY][heldX] = null;
+      if(move.jumpX != -1) {
+        board[move.jumpY][move.jumpX] = null
+        //checkWin();
+      }
+      if(!heldPiece.king && heldPiece.color=="red" && dropY==0){
+        heldPiece.king=true
+        kinged = true
+      }
+      else if(!heldPiece.king && heldPiece.color=="blue" && dropY==board.length-1){
+        heldPiece.king=true;
+        kinged = true;
+      }
+      if(kinged || move.jumpX == -1) {
+        turn = turn == "red" ? "blue" : "red";
+      }
+      else if(!(move.jumpX != -1 && getJumps(board[dropY][dropX],dropX,dropY,board).length > 0)) {
+        turn = turn == "red" ? "blue" : "red";
+      }
+      lastMove = move;
+    }
+    heldPiece=null;
+    heldX = -1;
+    heldY = -1;
+    var move = {
+      heldP: heldPiece,
+      x: heldX,
+      y: heldY,
+      t: turn,
+    }
   }*/
 
 }
