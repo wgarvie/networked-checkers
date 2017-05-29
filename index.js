@@ -90,6 +90,16 @@ io.on('connection', function(client) {
     }
   });
 
+  client.on('mouseOut', function(e) {
+    if(game.heldPiece != null && game.turn == client.color) {
+      game.heldPiece = null;
+      game.heldX = -1;
+      game.heldY = -1;
+      gamesetup.initializePieces(game.board, game.boardHeight);
+      io.emit('sync', game.board);
+    }
+  });
+
 });
 
 function placePiece(e) {
@@ -99,7 +109,7 @@ function placePiece(e) {
   var dropY = Math.floor(e.y/tileSize);
   var validMoves = moves.getValidMoves(game.turn, game.board, game.lastMove);
   if(validMoves.length == 0) {
-    var gameOver = turn + " can't move.";
+    game.gameOver = turn + " can't move.";
   }
   var move = null
   for(x = 0; x < validMoves.length; x++) {
@@ -112,7 +122,7 @@ function placePiece(e) {
     game.board[game.heldY][game.heldX] = null;
     if(move.jumpX != -1) {
       game.board[move.jumpY][move.jumpX] = null;
-      game.gameOver = checkers.checkWin();
+      game.gameOver = checkers.checkWin(game.board);
     }
     if(!game.heldPiece.king && game.heldPiece.color=="red" && dropY==0){
       game.heldPiece.king=true;

@@ -14,6 +14,7 @@ $(function() {
   canvas.addEventListener('mousedown', clientMouseDown);
   canvas.addEventListener('mousemove', clientMouseMove);
   canvas.addEventListener('mouseup', clientMouseUp);
+  canvas.addEventListener('mouseout', clientMouseOut);
 
   function cleanInput (input) {
     return $('<div/>').text(input.trim()).text();
@@ -77,6 +78,10 @@ $(function() {
       y: e.y
     }
     socket.emit('mouseUp', release);
+  }
+
+  function clientMouseOut() {
+    socket.emit('mouseOut');
   }
 
 });
