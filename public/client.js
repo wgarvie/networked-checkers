@@ -49,11 +49,15 @@ $(function() {
     board = serverBoard;
   });
 
+  socket.on('gameOver', function(serverGameOver) {
+    gameOver = serverGameOver;
+  });
+
   function mainLoop() {
     drawBoard(context, board, boardHeight);
     drawPieces(context, board);
     if(gameOver != "")
-      drawGameOver(context,boardHeight);
+      drawGameOver(context,boardHeight, gameOver);
   }
 
   function clientMouseDown(e) {

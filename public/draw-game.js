@@ -37,7 +37,7 @@ function drawPiece(context, newPiece) {
   }
 }
 
-function drawGameOver(context, boardHeight) {
+function drawGameOver(context, boardHeight, gameOver) {
   tileSize = boardHeight/8;
   context.fillStyle= "#000000"
   context.fillRect(tileSize/2,(tileSize/2)*5,(tileSize/2)*14,(tileSize/2)*6)

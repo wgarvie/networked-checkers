@@ -109,7 +109,7 @@ function placePiece(e) {
   var dropY = Math.floor(e.y/tileSize);
   var validMoves = moves.getValidMoves(game.turn, game.board, game.lastMove);
   if(validMoves.length == 0) {
-    game.gameOver = turn + " can't move.";
+    game.gameOver = game.turn + " can't move.";
   }
   var move = null
   for(x = 0; x < validMoves.length; x++) {
@@ -143,4 +143,7 @@ function placePiece(e) {
   game.heldPiece=null;
   game.heldX = -1;
   game.heldY = -1;
+  if(game.gameOver != null) {
+    io.emit('gameOver', game.gameOver);
+  }
 }
