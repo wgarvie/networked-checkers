@@ -3,10 +3,11 @@ function drawBoard(context, board, boardHeight) {
   for (y = 0; y < board.length; y++) {
     for(x = 0; x < board[0].length; x++) {
       if(((x + y) % 2) == 0){
-        context.fillStyle="#E6DD93";
+        //context.fillStyle="rgba(167,211,255,1,0)";
+        context.fillStyle="#DCDCDC";
       }
       else {
-        context.fillStyle="#000000";
+        context.fillStyle='rgba(44,62,80,1.0)';
       }
       context.fillRect(x*tileSize,y*tileSize, tileSize, tileSize);
     }
@@ -24,7 +25,12 @@ function drawPieces(context,board) {
 }
 
 function drawPiece(context, newPiece) {
-  context.fillStyle = newPiece.color;
+  if(newPiece.color == 'red') {
+    context.fillStyle = 'rgba(255,196,192,1.0)';
+  }
+  else if(newPiece.color == 'blue') {
+    context.fillStyle = 'rgba(194,204,113,1.0)'
+  }
   context.beginPath();
   context.arc(newPiece.xPos,newPiece.yPos,(tileSize-10)/2,0,2*Math.PI);
   context.stroke();
